@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Medical English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+:root,[data-theme="dark"]{
+  --bg:#0b1116;--surface:#111a21;--s2:#16212a;
+  --b1:rgba(214,230,238,.12);--b2:rgba(116,184,234,.4);--line:rgba(229,237,240,.3);
+  --ac:#74b8ea;--acrgb:116,184,234;--on-ac:#0b1116;--ac2:#ef7b72;--pink:#e6b655;
+  --green:#5fcf9d;--red:#f07a68;--text:#e5edf0;--muted:#8aa0ab;
+  --header-bg:rgba(11,17,22,.9);--shadow-lg:rgba(0,0,0,.45);
+}
+[data-theme="light"]{
+  --bg:#e7ece9;--surface:#f8faf8;--s2:#eef2ef;
+  --b1:rgba(19,34,44,.14);--b2:rgba(29,93,147,.42);--line:rgba(19,34,44,.5);
+  --ac:#1d5d93;--acrgb:29,93,147;--on-ac:#ffffff;--ac2:#a3262f;--pink:#8c5b0c;
+  --green:#1f7a52;--red:#b8402b;--text:#13222c;--muted:#53676f;
+  --header-bg:rgba(231,236,233,.92);--shadow-lg:rgba(19,34,44,.16);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,var(--b1) 1px,transparent 1.5px);background-size:26px 26px;opacity:.8;pointer-events:none;z-index:0}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+
+/* ---------- шапка ---------- */
+header{position:sticky;top:0;z-index:200;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:var(--header-bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.header-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.logo-icon{width:32px;height:32px;border-radius:3px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.logo-text{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-weight:600;color:var(--text);letter-spacing:.005em;white-space:nowrap}
+.logo-text span{color:var(--ac)}
+.header-right{display:flex;align-items:center;gap:10px}
+#authContainer{display:flex;align-items:center;gap:8px}
+.theme-toggle{width:40px;height:40px;border-radius:3px;background:transparent;border:1px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;color:var(--text);transition:background .2s;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.theme-toggle:hover{background:var(--s2)}
+.theme-toggle .fa-sun,.theme-toggle .fa-moon{font-size:1rem;position:absolute;transition:all .4s cubic-bezier(.4,0,.2,1)}
+[data-theme="dark"] .theme-toggle .fa-sun{opacity:1;transform:rotate(0) scale(1)}
+[data-theme="dark"] .theme-toggle .fa-moon{opacity:0;transform:rotate(90deg) scale(0)}
+[data-theme="light"] .theme-toggle .fa-sun{opacity:0;transform:rotate(-90deg) scale(0)}
+[data-theme="light"] .theme-toggle .fa-moon{opacity:1;transform:rotate(0) scale(1);color:#6366f1}
+.header-badge{font-size:.8rem;color:var(--muted);border:1px solid var(--b1);padding:4px 12px;border-radius:3px;white-space:nowrap}
+.user-profile-mini{display:flex;align-items:center;gap:10px;padding:4px 12px 4px 5px;border-radius:3px;background:transparent;border:1px solid var(--line)}
+.user-avatar-mini{width:30px;height:30px;border-radius:2px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:600;flex-shrink:0}
+.user-name-mini{font-size:.86rem;font-weight:500;color:var(--text)}
+.user-role-badge-mini{font-size:.66rem;padding:1px 8px;border-radius:2px;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
+.user-role-badge-mini.student{background:rgba(95,207,157,.14);color:var(--green);border:1px solid var(--green)}
+.user-role-badge-mini.teacher{background:rgba(var(--acrgb),.14);color:var(--ac);border:1px solid var(--ac)}
+.logout-btn{height:40px;padding:0 12px;border-radius:3px;border:1px solid var(--line);background:transparent;color:var(--red);cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;font-size:.84rem;font-weight:500;transition:background .2s;-webkit-tap-highlight-color:transparent}
+.logout-btn:hover{background:rgba(240,122,104,.1);border-color:var(--red)}
+
+/* ---------- заглавие ---------- */
+.hero{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:68px 24px 38px;display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,320px);grid-template-areas:"tag stats" "title stats";column-gap:56px;align-items:end;border-bottom:1px solid var(--line)}
+.hero-tag{grid-area:tag;display:flex;align-items:center;gap:14px;margin:0 0 10px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:1.65rem;color:var(--ac2)}
+.hero-tag::before{content:'';width:48px;height:1px;background:var(--ac2)}
+.hero h1{grid-area:title;font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(2.6rem,5.6vw,4.9rem);line-height:1;letter-spacing:-.015em;color:var(--text);text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--ac)}
+.stats-row{grid-area:stats;display:flex;justify-content:flex-end;gap:36px}
+.stat{text-align:right;border-bottom:1px solid var(--line);padding-bottom:10px;min-width:96px;position:relative}
+.stat::after{content:'';position:absolute;left:0;bottom:-1px;width:36%;height:4px;background:var(--ac)}
+.stat-num{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:3.6rem;font-weight:500;line-height:.95;color:var(--text);font-variant-numeric:lining-nums}
+.stat-label{font-size:.8rem;color:var(--muted)}
+
+/* ---------- поиск ---------- */
+.search-bar{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:28px 24px 0}
+.search-wrap{position:relative;max-width:520px}
+.search-wrap i{position:absolute;left:4px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem;pointer-events:none}
+.search-input{width:100%;padding:12px 8px 12px 30px;background:transparent;border:none;border-bottom:1.5px solid var(--line);border-radius:0;color:var(--text);font-family:inherit;font-size:1rem;outline:none;transition:border-color .2s}
+.search-input::placeholder{color:var(--muted)}
+.search-input:focus{border-bottom-color:var(--ac)}
+
+/* ---------- список тем ---------- */
+.section-label{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:36px 24px 0;display:flex;align-items:baseline;gap:16px}
+.section-label h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.9rem;line-height:1.1;color:var(--text)}
+.section-label::after{content:'';flex:1;height:1px;background:var(--line);transform:translateY(-6px)}
+.grid-wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:22px 24px 100px}
+.topics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:0 44px}
+.topic-card{position:relative;display:flex;align-items:center;gap:16px;padding:14px 6px 14px 0;text-decoration:none;color:var(--text);border-bottom:1px solid var(--b1);transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent;min-height:84px}
+.topic-card::before{content:'';position:absolute;left:-10px;top:14%;bottom:14%;width:3px;background:var(--ac);opacity:0;transition:opacity .2s}
+.topic-card:hover{border-bottom-color:var(--line);background:rgba(var(--acrgb),.05)}
+.topic-card:hover::before{opacity:1}
+.card-icon{width:64px;height:64px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.card-icon img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 4px 6px var(--shadow-lg));transition:transform .25s}
+.topic-card:hover .card-icon img{transform:scale(1.07)}
+.card-body{flex:1;min-width:0}
+.card-num{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.1rem;line-height:1.1;color:var(--ac2);margin-bottom:3px;font-variant-numeric:lining-nums}
+.card-title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.35rem;line-height:1.15;color:var(--text);text-transform:capitalize;overflow-wrap:anywhere}
+.card-arrow{color:var(--muted);font-size:.8rem;flex-shrink:0;transition:color .2s,transform .2s}
+.topic-card:hover .card-arrow{color:var(--ac);transform:translateX(3px)}
+.empty{display:none;padding:28px 0;color:var(--muted);font-size:.95rem}
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:28px 24px;text-align:center;color:var(--muted);font-size:.84rem}
+
+/* ---------- адаптив ---------- */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;grid-template-areas:"tag" "title" "stats";padding:44px 20px 28px}
+  .stats-row{justify-content:flex-start;margin-top:26px;gap:28px}
+  .stat{text-align:left}
+  .header-badge{display:none}
+}
+@media(max-width:660px){
+  .header-inner{padding:0 14px;height:60px}
+  .logo-text{font-size:1.25rem}
+  .user-name-mini,.user-role-badge-mini,.logout-btn span{display:none}
+  .user-profile-mini{padding:4px}
+  .logout-btn{width:40px;padding:0;justify-content:center}
+  .hero h1{font-size:2.6rem}
+  .stat-num{font-size:2.8rem}
+  .search-bar{padding:22px 14px 0}
+  .search-input{font-size:16px}
+  .section-label{padding:30px 14px 0}
+  .section-label h2{font-size:1.6rem}
+  .grid-wrap{padding:14px 14px 70px}
+  .topics-grid{grid-template-columns:1fr}
+  .topic-card{padding:12px 4px 12px 0}
+  .topic-card::before{left:-14px}
+  .card-icon{width:56px;height:56px}
+  .card-title{font-size:1.28rem}
+}
+@media(hover:none){.topic-card:hover{background:none}.topic-card:hover .card-icon img{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+                <span class="logo-text">Medical <span>English</span></span>
+            </a>
+            <div class="header-right">
+                <div id="authContainer">
+                    <div class="user-profile-mini" id="userProfileMini" style="display:none;">
+                        <div class="user-avatar-mini" id="userAvatarMini">А</div>
+                        <span class="user-name-mini" id="userNameMini">Анна</span>
+                        <span class="user-role-badge-mini student" id="userRoleBadgeMini">Студент</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn" style="display:none;" title="Выйти">
+                        <i class="fas fa-sign-out-alt"></i> <span>Выйти</span>
+                    </button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Switch theme">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="header-badge">Interactive course</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-tag">34 topics</div>
+        <h1>Anatomical<br><em>English</em></h1>
+        <div class="stats-row">
+            <div class="stat">
+                <span class="stat-num">34</span>
+                <span class="stat-label">topics</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">600+</span>
+                <span class="stat-label">professional terms</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="search-bar">
+        <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Find a topic..." id="searchInput" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="section-label">
+        <h2>All topics</h2>
+    </div>
+
+    <div class="grid-wrap">
+        <div class="topics-grid" id="topicsGrid">
+            <a href="1.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/human_body.png" alt="Human Body" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 01</div>
+                    <div class="card-title">The HUMAN BODY</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="2.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/skeleton.png" alt="Skeleton" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 02</div>
+                    <div class="card-title">The SKELETON</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="3.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/skull.png" alt="Skull" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 03</div>
+                    <div class="card-title">The SKULL</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="4.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/spinal_column.png" alt="Spinal Column" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 04</div>
+                    <div class="card-title">The SPINAL COLUMN</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="5.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/chest.png" alt="Chest" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 05</div>
+                    <div class="card-title">The CHEST</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="6.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/arm.png" alt="Upper Limb" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 06</div>
+                    <div class="card-title">The UPPER LIMB</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="7.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/lower_limb.png" alt="Lower Limb" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 07</div>
+                    <div class="card-title">The LOWER LIMB</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="8.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/joints.png" alt="Bones & Joints" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 08</div>
+                    <div class="card-title">BONES, CARTILAGES & JOINTS</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="9.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/muscles.png" alt="Muscular System" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 09</div>
+                    <div class="card-title">The MUSCULAR SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="10.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/striated.png" alt="Striated Muscles" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 10</div>
+                    <div class="card-title">STRIATED MUSCLES</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="11.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/smooth.png" alt="Smooth Muscles" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 11</div>
+                    <div class="card-title">SMOOTH MUSCLES</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="12.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/tendon.png" alt="Tendons & Ligaments" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 12</div>
+                    <div class="card-title">TENDONS & LIGAMENTS</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="13.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/cardiovascular.png" alt="Cardiovascular System" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 13</div>
+                    <div class="card-title">The CARDIOVASCULAR SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="14.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/heart.png" alt="Heart" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 14</div>
+                    <div class="card-title">The HEART</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="15.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/vessels.png" alt="vessels" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 15</div>
+                    <div class="card-title">The VESSELS</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="16.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/blood.png" alt="blood" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 16</div>
+                    <div class="card-title">The BLOOD</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="17.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/heart_sounds.png" alt="blood" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 17</div>
+                    <div class="card-title">The HEART SOUNDS</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="18.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/respiratory_system.png" alt="blood" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 18</div>
+                    <div class="card-title">The RESPIRATORY SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="19.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/LRT.png" alt="blood" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 19</div>
+                    <div class="card-title">The UPPER RESPIRATORY TRACT</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="20.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/URT.png" alt="blood" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 20</div>
+                    <div class="card-title">The LOWER RESPIRATORY TRACT</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="21.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/digestive.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 21</div>
+                    <div class="card-title">The DIGESTIVE SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="22.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/stomach.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 22</div>
+                    <div class="card-title">The STOMACH</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="23.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/intestines.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 23</div>
+                    <div class="card-title">The INTESTINES</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="24.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/accessory.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 24</div>
+                    <div class="card-title">The ACCESSORY ORGANS OF DIGESTION</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="25.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/Nervous_system.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 25</div>
+                    <div class="card-title">The NERVOUS SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="26.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/brain.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 26</div>
+                    <div class="card-title">The BRAIN</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="27.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/cord.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 27</div>
+                    <div class="card-title">The SPINAL CORD and NERVES</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="28.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/urinary.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 28</div>
+                    <div class="card-title">The URINARY SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="29.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/kidneys.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 29</div>
+                    <div class="card-title">The KIDNEYS</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="30.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/FRS.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 30</div>
+                    <div class="card-title">The FEMALE REPRODUCTIVE SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="31.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/MRS.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 31</div>
+                    <div class="card-title">The MALE REPRODUCTIVE SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="32.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/skin.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 32</div>
+                    <div class="card-title">The INTEGUMENTARY SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="33.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/glands.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 33</div>
+                    <div class="card-title">The ENDOCRINE SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+            <a href="34.html" class="topic-card">
+                <div class="card-icon"><img src="images/icon/lymphatic.png" alt="digstive" loading="lazy"></div>
+                <div class="card-body">
+                    <div class="card-num">Lesson 34</div>
+                    <div class="card-title">The LYMPHATIC SYSTEM</div>
+                </div>
+                <i class="fas fa-arrow-right card-arrow"></i>
+            </a>
+        </div>
+        <div class="empty" id="emptyMsg">Nothing found.</div>
+    </div>
+
+    <footer>
+        Medical English Interactive Course &nbsp;·&nbsp; 34 Lessons
+    </footer>
+
+    <script>
+        // ===== АВТОРИЗАЦИЯ =====
+        const SESSION_KEY = 'pe_session';
+        const START_PAGE  = '../../index.html';
+
+        function getCurrentUser() {
+            try {
+                const data = localStorage.getItem(SESSION_KEY);
+                return data ? JSON.parse(data) : null;
+            } catch { return null; }
+        }
+
+        function updateHeader(user) {
+            const profileMini = document.getElementById('userProfileMini');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const avatar = document.getElementById('userAvatarMini');
+            const name = document.getElementById('userNameMini');
+            const roleBadge = document.getElementById('userRoleBadgeMini');
+
+            if (user) {
+                profileMini.style.display = 'flex';
+                logoutBtn.style.display = 'flex';
+                const initials = user.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+                avatar.textContent = initials || user.name[0].toUpperCase();
+                name.textContent = user.name;
+                if (user.role === 'teacher') {
+                    roleBadge.textContent = 'Преподаватель';
+                    roleBadge.className = 'user-role-badge-mini teacher';
+                } else {
+                    roleBadge.textContent = 'Студент';
+                    roleBadge.className = 'user-role-badge-mini student';
+                }
+            } else {
+                profileMini.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        const user = getCurrentUser();
+        if (!user) {
+            window.location.replace(START_PAGE);
+        } else {
+            updateHeader(user);
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            if (confirm('Вы уверены, что хотите выйти из аккаунта?')) {
+                localStorage.removeItem(SESSION_KEY);
+                window.location.href = START_PAGE;
+            }
+        });
+
+        // ===== ТЕМА =====
+        (function() {
+            const html = document.documentElement;
+            const toggle = document.getElementById('themeToggle');
+            const saved = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', saved);
+            toggle.addEventListener('click', () => {
+                const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+            });
+        })();
+
+        // ===== ПОИСК =====
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.topic-card');
+        const emptyMsg = document.getElementById('emptyMsg');
+
+        searchInput.addEventListener('input', () => {
+            const q = searchInput.value.toLowerCase().trim();
+            let shown = 0;
+            cards.forEach(card => {
+                const ok = card.textContent.toLowerCase().includes(q);
+                card.style.display = ok ? '' : 'none';
+                if (ok) shown++;
+            });
+            emptyMsg.style.display = shown ? 'none' : 'block';
+        });
+    </script>
+
+</body>
+</html>
